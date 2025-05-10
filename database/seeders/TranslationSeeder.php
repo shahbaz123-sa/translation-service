@@ -13,8 +13,8 @@ class TranslationSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 1000) as $i) {
-            Translation::factory()->count(100)->create();
+        foreach (range(1, 100) as $i) {
+            Translation::factory()->count(10)->create();
         }
     }
 }
