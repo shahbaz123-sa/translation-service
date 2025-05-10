@@ -1,18 +1,15 @@
 # Translation-service
 
-This is a RESTful API for managing translations. The API provides endpoints to list, create, update, retrieve, and search translations in various locales.
+The Translation-service is a backend service designed to manage translations for multiple locales. It provides a RESTful interface to interact with translation data, allowing you to create, update, retrieve, search, and list translations efficiently. This API is ideal for applications that need dynamic and localized content management across different languages and regions.
 
-## Table of Contents
-- [Installation](#installation)
-  - [Set Up Project](#set-up-project)
-  - [Run Migrations](#run-migrations)
-- [Running the Project](#running-the-project)
-  - [PHP Artisan Serve](#php-artisan-serve)
-  - [Running Tests](#running-tests)
-- [Swagger Documentation](#swagger-documentation)
-- [API Documentation](#api-documentation)
-- [Error Handling](#error-handling)
-- [License](#license)
+Key features of the API include:
+- Support for various locales, enabling easy translation management for different regions.
+- CRUD (Create, Read, Update, Delete) operations for managing translation entries.
+- Search functionality to quickly retrieve translations based on criteria.
+- Seamless integration with your application, allowing you to fetch and manage translations in real-time.
+
+Whether you're building a multilingual website, app, or any system that requires localization, the Translation-service serves as a flexible solution to handle your translation needs.
+
 
 ## Installation
 
@@ -29,6 +26,11 @@ composer install
 Make a copy of the .env.example file:
 cp .env.example .env
 
+Generate Application Key
+To generate the application key, run the following command:
+
+php artisan key:generate
+
 Run Migrations and Seed the Database
 php artisan migrate:fresh --seed
 
@@ -39,4 +41,5 @@ To run the tests, use the following command:
 
 php artisan test
 
+to see swagger documentation
 http://127.0.0.1:8000/docs
