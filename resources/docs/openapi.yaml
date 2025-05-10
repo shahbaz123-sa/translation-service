@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: Translation API
+  description: API for managing translations
+  version: 1.0.0
+servers:
+  - url: http://localhost/api
+    description: Local development server
+paths:
+  /translations:
+    get:
+      summary: Get a list of all translations
+      tags:
+        - Translations
+      responses:
+        '200':
+          description: A list of translations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Translation'
+        '500':
+          description: Server error
+    post:
+      summary: Create a new translation
+      tags:
+        - Translations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                content:
+                  type: string
+                locale:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Translation created successfully
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+  /translations/{id}:
+    put:
+      summary: Update a translation by ID
+      tags:
+        - Translations
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the translation to update
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Translation updated successfully
+        '404':
+          description: Translation not found
+        '500':
+          description: Server error
+components:
+  schemas:
+    Translation:
+      type: object
+      required:
+        - id
+        - key
+        - content
+        - locale
+      properties:
+        id:
+          type: integer
+          example: 1
+        key:
+          type: string
+          example: hello
+        content:
+          type: string
+          example: Hello
+        locale:
+          type: string
+          example: en
+        tags:
+          type: array
+          items:
+            type: string

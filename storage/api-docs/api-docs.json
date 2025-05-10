@@ -1,0 +1,330 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Translation API",
+        "description": "API for managing translations in the system.",
+        "contact": {
+            "email": "your-email@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/translations": {
+            "get": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "List all translations",
+                "operationId": "434a55804ca50c9845bd4781c222a539",
+                "responses": {
+                    "200": {
+                        "description": "A list of translations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Translation"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Create a new translation",
+                "operationId": "fe38d8cf02ff5c92d2cd8d5dfb095e5f",
+                "requestBody": [
+                    {
+                        "mediaType": "application/json",
+                        "schema": {
+                            "required": [
+                                "key",
+                                "content",
+                                "locale"
+                            ],
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "example": "hello"
+                                },
+                                "content": {
+                                    "type": "string",
+                                    "example": "Hello"
+                                },
+                                "locale": {
+                                    "type": "string",
+                                    "example": "en"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/translations/{id}": {
+            "get": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Get a single translation",
+                "operationId": "75883ef2ed1a98ead1086fde3b5b8967",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the translation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested translation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Translation"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Translation not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Update an existing translation",
+                "operationId": "e314c7afaf04580ad65b747c8a1f7ce6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the translation to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": [
+                    {
+                        "mediaType": "application/json",
+                        "schema": {
+                            "required": [
+                                "content"
+                            ],
+                            "properties": {
+                                "content": {
+                                    "type": "string",
+                                    "example": "Updated content"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation updated successfully"
+                    },
+                    "404": {
+                        "description": "Translation not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/translations/search": {
+            "get": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Search translations",
+                "description": "Search translations by tag, key, or content.",
+                "operationId": "searchTranslations",
+                "parameters": [
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "description": "Filter by tag (must match an item in the JSON 'tags' array)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "description": "Search by key (partial match)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Search by content (partial match)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of matching translations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "locale": {
+                                                "type": "string",
+                                                "example": "en"
+                                            },
+                                            "key": {
+                                                "type": "string",
+                                                "example": "greeting"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Hello"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "common",
+                                                    "welcome"
+                                                ]
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to search translations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Failed to search translations"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Translation": {
+                "required": [
+                    "id",
+                    "key",
+                    "content",
+                    "locale"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "key": {
+                        "type": "string",
+                        "example": "hello"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "Hello"
+                    },
+                    "locale": {
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Translations",
+            "description": "Translations"
+        }
+    ]
+}
