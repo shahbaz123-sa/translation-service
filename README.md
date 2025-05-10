@@ -34,6 +34,15 @@ php artisan key:generate
 Run Migrations and Seed the Database
 php artisan migrate:fresh --seed
 
+Generate Token through login API
+    http://127.0.0.1:8000/api/login
+    bode: 
+    {
+        "email": "test@example.com",
+        "password": "123"
+    }
+
+
 php artisan serve
 
 Running Tests
@@ -43,3 +52,39 @@ php artisan test
 
 to see swagger documentation
 http://127.0.0.1:8000/docs
+
+
+APIs with body
+    Create translation (Method PUSH)
+    http://127.0.0.1:8000/api/translations
+    Body:
+    {
+        "locale": "en",
+        "key": "welcome_message",
+        "content": "Welcome to our app!",
+        "tags": ["mobile", "web"]
+    }
+
+    View Single Record (Method: GET)
+    Retrieve a single translation record:
+    GET http://127.0.0.1:8000/api/translations/{id}
+
+    Update Record (Method: PUT)
+    Update an existing translation entry:
+    PUT http://127.0.0.1:8000/api/translations/{id}
+    Body:
+    {
+        "locale": "en",
+        "key": "welcome_message",
+        "content": "Welcome to this application!",
+        "tags": ["web"]
+    }
+
+    Search by Tag
+    GET http://127.0.0.1:8000/api/search?tag={tag}
+
+    Search by Key
+    GET http://127.0.0.1:8000/api/search?key={key}
+
+    Search by Content
+    GET http://127.0.0.1:8000/api/search?content={content}
